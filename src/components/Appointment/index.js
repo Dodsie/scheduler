@@ -9,7 +9,7 @@ export default function Appointment(props) {
     <article className="appointment">
       <Fragment>
       <Header time={props.time}></Header>
-      {!props.interview ? (<Empty id={props.id}></Empty>) : (<Show student={props.student} interviewer={props.interview} ></Show>)}
+      {!props.interview ? (<Empty id={props.id}></Empty>) : (<Show student={props.interview.student} interviewer={props.interview} ></Show>)}
       </Fragment>
     </article>
   );
