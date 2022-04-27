@@ -29,11 +29,29 @@ export default function useApplicationData() {
   });
   }, [])
 
-  const updateSpots = () => {
-    axios.get("/api/days").then((response) => {
-      setState(prev => ({...prev, days: response.data}))
-    }  
-    )
+  // const updateSpots = () => {
+  //   axios.get("/api/days").then((response) => {
+  //     setState(prev => ({...prev, days: response.data}))
+  //   }  
+  //   )
+  // }
+
+  const updateSpots = (state, appointments) => {
+    let spots = 0;
+
+    const weekday = state.days.find(weekday =>
+      weekday.name === state.day);
+
+    weekday.appointments.forEach(id => {
+      const appointment = appointments[id];
+      if (!appointment.interview)
+        spots++
+    })
+
+    const day = { ...weekday, spots };
+    const days = state.days.map(weekday =>
+      weekday.name === state.day ? day : weekday)
+    return days;
   }
 
   const bookInterview = (id, interview)=> {
@@ -46,10 +64,10 @@ export default function useApplicationData() {
       [id]: appointment
     };
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then((response) => {
-      console.log(response)
-      setState({...state, appointments})
-      updateSpots()
+    .then(() => {
+      const days = updateSpots(state, appointments)
+      setState({...state, days, appointments})
+      
     })     
   }
 
@@ -64,9 +82,9 @@ export default function useApplicationData() {
       [id]: appointment
     };
     return axios.delete(`/api/appointments/${id}`)
-    .then(() => { setState({...state, appointments})
-    console.log(state)
-    updateSpots()
+    .then(() => {
+      const days = updateSpots(state, appointments)
+      setState({...state, days, appointments})
   }
   
     )
@@ -77,39 +95,3 @@ export default function useApplicationData() {
   return {state, setDay, bookInterview, cancelInterview}
 }
 
-
-
-
-
-
-
-
-// const updateSpotsTwo = (weekday) => {
-  //   console.log('state',state)
-  //   let dayIndex = 0;
-  //   const theDay = state.days.find((day, index) => {
-  //     const isCorrectDay = day.name === weekday;
-      
-  //     if (isCorrectDay) {
-  //       dayIndex = index
-  //     }
-  //     return isCorrectDay;
-  //   //all weekdays
-  //   }) 
-  //   let newSpots = 0
-
-  //   theDay.appointments.forEach((id) => {
-  //     if (state.appointments[id].interview) {
-  //       newSpots += 1
-  //     }
-  //   })
-  //   console.log(newSpots)
-  //   const updatedDay = {
-  //     ...theDay,
-  //     spots: newSpots
-  //   }
-  //   const days = [...state.days]
-  //   days[dayIndex] = updatedDay
-  //   console.log('days',days)
-  //   setState(prev => ({...prev, days: days}))
-  // }
