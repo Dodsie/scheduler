@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "components/Application.scss";
+import axios from "axios";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
-import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
-
+import "components/Application.scss";
 
 export default function Application() {
   const [state, setState] = useState({
@@ -13,6 +12,7 @@ export default function Application() {
     appointments: {},
     interviewers: {}
   });
+  
   const setDay = day => setState({...state, day});
  
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -36,7 +36,6 @@ export default function Application() {
   }, [])
 
   const bookInterview = (id, interview)=> {
-    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -45,20 +44,27 @@ export default function Application() {
       ...state.appointments,
       [id]: appointment
     };
-    setState({...state, appointments})
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then(() => { setState(...state.appointments, appointments)})
-    .catch((error) => console.log(error.response))
+    .then(() => { 
+      setState({...state, appointments})})     
   }
 
   const cancelInterview = (id) => {
     
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.delete(`/api/appointments/${id}`)
+    .then(() => { setState({...state, appointments})})
   };
-  
 
   const Schedule = dailyAppointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-  
+  const interview = getInterview(state, appointment.interview);
     return (
     <Appointment 
     key={appointment.id}
@@ -67,10 +73,10 @@ export default function Application() {
     interview={interview}
     interviewers={dailyInterviews}
     bookInterview={bookInterview}
+    cancelInterview={cancelInterview}
     />
     );
     })
-
 
   return (
     <main className="layout">
@@ -96,6 +102,7 @@ export default function Application() {
       </section>
       <section className="schedule">
         {Schedule}
+        <Appointment time={'5pm'}/>
       </section>
       
     </main>
