@@ -25,6 +25,7 @@ const getInterviewersForDay = (state, day) => {
   if(!validDay || !state.days) {return []};
 
   let resultArr = [];
+
   for (const id of validDay.interviewers) {
     const interviewerObj = state.interviewers[id];
     resultArr.push(interviewerObj)

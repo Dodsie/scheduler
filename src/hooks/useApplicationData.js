@@ -67,8 +67,7 @@ export default function useApplicationData() {
     .then(() => {
       const days = updateSpots(state, appointments)
       setState({...state, days, appointments})
-      
-    })     
+    })
   }
 
   const cancelInterview = (id) => {
