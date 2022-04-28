@@ -1,9 +1,9 @@
 # Interview Scheduler
 A Single-Page application that allows users to book and cancel interviews.
 
-![](URL)
-![](URL)
-![](URL)
+!["Main-Page"](https://github.com/Dodsie/scheduler/blob/master/images/Interview%20Scheduler3.png?raw=true)
+!["On-Delete"](https://github.com/Dodsie/scheduler/blob/master/images/Interview%20Scheduler2.png?raw=true)
+!["Add"](https://github.com/Dodsie/scheduler/blob/master/images/Interview%20Scheduler.png?raw=true)
 ## Setup
 
 - Install dependencies with `npm install`.
