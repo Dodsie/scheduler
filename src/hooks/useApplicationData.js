@@ -1,8 +1,9 @@
 import { useState, useEffect} from 'react';
 import axios from 'axios';
 
-export default function useApplicationData() {
+// Returns state & book/cancel/update-spots functions
 
+export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -29,6 +30,7 @@ export default function useApplicationData() {
   });
   }, [])
 
+  // Another function to grab spots remotely.
   // const updateSpots = () => {
   //   axios.get("/api/days").then((response) => {
   //     setState(prev => ({...prev, days: response.data}))

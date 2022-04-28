@@ -1,8 +1,13 @@
 # Interview Scheduler
+A Single-Page application that allows users to book and cancel interviews.
 
+![](URL)
+![](URL)
+![](URL)
 ## Setup
 
-Install dependencies with `npm install`.
+- Install dependencies with `npm install`.
+- Retrieve Database by cloning Scheduler-api from `https://github.com/lighthouse-labs/scheduler-api` Follow the README and follow the correct steps to create and seed the database.
 
 ## Running Webpack Development Server
 
@@ -21,3 +26,4 @@ npm test
 ```sh
 npm run storybook
 ```
+

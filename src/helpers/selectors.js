@@ -1,5 +1,5 @@
 const getAppointmentsForDay = (state, day) => {
-  let validDay = state.days.filter(x => x.name === day)[0];
+  const validDay = state.days.filter(x => x.name === day)[0];
   if(!validDay || !state.days) {return []};
 
   let resultArr = [];
@@ -11,7 +11,7 @@ const getAppointmentsForDay = (state, day) => {
 }
 
 const getInterview = (state, interview) => {
-  let interviewData ={};
+  let interviewData = {};
   if (!interview) {
     return null;
   }

@@ -5,6 +5,8 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpe
 import "components/Application.scss";
 import useApplicationData from "hooks/useApplicationData";
 
+//Renders Application page.
+
 export default function Application() {
 
   const {
@@ -13,16 +15,14 @@ export default function Application() {
     bookInterview,
     cancelInterview
   } = useApplicationData()
-  
-
   const dailyInterviews = getInterviewersForDay(state, state.day);
-  
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   
+  // returns schedule after map through appointments.
   const Schedule = dailyAppointments.map((appointment) => {
   
-    const interview = getInterview(state, appointment.interview);
-    
+  const interview = getInterview(state, appointment.interview);
+
     return (
     <Appointment 
     key={appointment.id}

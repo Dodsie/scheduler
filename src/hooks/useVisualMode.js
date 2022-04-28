@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+// tracks and updates current view mode of appointment & history of modes.
+
 export default function useVisualMode(initialMode) {
   const [history, setHistory] = useState([initialMode])
   

@@ -9,6 +9,8 @@ import Status from "./Status";
 import Error from "./Error";
 import Confirm from "./Confirm";
 
+// Returns entire appointment View.
+
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -20,10 +22,12 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM"
   const DELETE = "DELETE"
   
+  // controls modes for transition
   const {mode, transition, back} = useVisualMode(
     props.interview ? SHOW : EMPTY
     )
 
+    
     function save(name, interviewer) { 
       const interview = {
         student: name,
@@ -47,6 +51,7 @@ export default function Appointment(props) {
   return (
     <article className="appointment">
       <Fragment>
+
       <Header time={props.time}></Header>
       
       {mode === EMPTY && (<Empty 
@@ -64,7 +69,7 @@ export default function Appointment(props) {
       interviewer={props.interview.interviewer.id}
       interviewers={props.interviewers}
       onSave={save}
-      onCancel={() => cancel()}
+      onCancel={() => back()}
       />)}
 
       {mode === SHOW && (<Show 
@@ -97,6 +102,7 @@ export default function Appointment(props) {
        />)}
       
       </Fragment>
+
     </article>
   );
 };

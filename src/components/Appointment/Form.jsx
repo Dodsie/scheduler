@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
+/* 
+Returns on create/edit appointment,
+allowing us to add and remove appointments with the methods 
+and functions created in helpers.
+*/
+
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
@@ -16,6 +22,8 @@ export default function Form(props) {
     props.onCancel();
   };
   
+  // Checks for null value on form submission, preventing database corruption.
+
   const validate = () => {
     if (student=== "") {
       setError("student name cannot be blank");
